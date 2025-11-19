@@ -1,0 +1,17 @@
+{
+  "name": "HaiFlix",
+  "short_name": "HaiFlix",
+  "description": "Dive into HaiFlix — your ultimate destination for immersive movie streaming, binge-worthy webseries, and seamless live TV entertainment. Experience your favorite content anytime, anywhere with stunning quality and a smooth, modern interface.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff1a1a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

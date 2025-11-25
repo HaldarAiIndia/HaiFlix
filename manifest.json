@@ -1,7 +1,7 @@
 {
   "name": "HaiFlix",
   "short_name": "HaiFlix",
-  "description": "Dive into HaiFlix — your ultimate destination for immersive movie streaming, binge-worthy webseries, and seamless live TV entertainment. Experience your favorite content anytime, anywhere with stunning quality and a smooth, modern interface.",
+  "description": "HaiFlix — is your home for unlimited movies, trending webseries, and ultra-fast Live TV streaming. Watch anytime, anywhere — no limits.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

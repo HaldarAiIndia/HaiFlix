@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaiFlix Admin</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/admin.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside id="left-sidebar">
+            <div class="brand-logo">
+                <span>Hai<span class="text-red">Flix</span></span>
+                <small>Admin Console</small>
+            </div>
+
+            <!-- Main Navigation -->
+            <nav class="nav-menu">
+                <div class="nav-label">Library</div>
+                <a href="#" class="nav-link active" data-section="movies">
+                    <span class="material-symbols-rounded">movie</span>
+                    <span>Movies</span>
+                </a>
+                <a href="#" class="nav-link" data-section="series">
+                    <span class="material-symbols-rounded">video_library</span>
+                    <span>Series</span>
+                </a>
+                <a href="#" class="nav-link" data-section="livetv">
+                    <span class="material-symbols-rounded">cast_connected</span>
+                    <span>Live TV</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer (Settings) -->
+            <div class="sidebar-footer">
+                <div class="nav-label">Settings</div>
+                <button id="permissions-btn" class="nav-item-btn">
+                    <span class="material-symbols-rounded">encrypted</span>
+                    <span>Permissions</span>
+                </button>
+                <button id="banner-btn" class="nav-item-btn">
+                    <span class="material-symbols-rounded">ad_units</span>
+                    <span>Banners</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button id="menu-toggle" class="icon-btn mobile-only">
+                        <span class="material-symbols-rounded">menu</span>
+                    </button>
+                    <h1 id="header-title">Movies</h1>
+                </div>
+            </header>
+
+            <!-- Content Screens -->
+            <div class="content-container">
+                <div id="movies-screen" class="screen active">
+                    <div id="movies-content-area" class="grid-layout"></div>
+                </div>
+                <div id="series-screen" class="screen">
+                     <div id="series-content-area" class="grid-layout"></div>
+                </div>
+                <div id="livetv-screen" class="screen">
+                     <div id="livetv-content-area" class="grid-layout"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button id="fab" class="fab-main">
+        <span class="material-symbols-rounded">add</span>
+    </button>
+
+    <!-- MODALS (Unchanged) -->
+    <div id="form-modal-overlay" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Content</h2>
+                <button id="form-close-btn" class="icon-btn-close"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="data-form">
+                    <input type="hidden" id="edit-id">
+                    
+                    <div class="form-group">
+                        <label>Title</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-rounded input-icon">title</span>
+                            <input type="text" id="name" placeholder="Content Title" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Poster Image</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-rounded input-icon">image</span>
+                            <input type="url" id="image-url" placeholder="https://image.com/poster.jpg" required>
+                        </div>
+                    </div>
+                    
+                    <div id="movie-fields" class="hidden section-group">
+                        <div class="row">
+                             <div class="form-group col">
+                                <label>Source</label>
+                                <div class="input-wrapper">
+                                    <span class="material-symbols-rounded input-icon">input</span>
+                                    <select id="movie-source-type">
+                                        <option value="direct">Direct File</option>
+                                        <option value="iframe">Embed (iFrame)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <label>Genre</label>
+                                <div class="input-wrapper">
+                                    <span class="material-symbols-rounded input-icon">category</span>
+                                    <select id="catalogue">
+                                        <option>Action/Adventure</option><option>Comedy/Drama</option><option>Horror</option><option>Sci-Fi</option><option>Thriller</option><option>Hollywood</option><option>Bollywood</option><option>Animation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="movie-url-label">Video URL</label>
+                             <div class="input-wrapper">
+                                <span class="material-symbols-rounded input-icon">play_circle</span>
+                                <input type="text" id="movie-url" placeholder="https://...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="series-fields" class="hidden section-group">
+                        <div class="form-group">
+                            <label>Season Number</label>
+                             <div class="input-wrapper">
+                                <span class="material-symbols-rounded input-icon">tag</span>
+                                <input type="number" id="series-number" placeholder="1">
+                            </div>
+                        </div>
+                        <div id="episodes-container"></div>
+                        <button type="button" id="add-episode-btn" class="btn-outline full-width">
+                            <span class="material-symbols-rounded">add</span> Add Episode
+                        </button>
+                    </div>
+
+                    <div id="livetv-fields" class="hidden section-group">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="livetv-source-type">
+                                <option value="m3u8">HLS (.m3u8)</option>
+                                <option value="mpd">DASH (.mpd)</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stream URL</label>
+                            <div class="input-wrapper">
+                                <span class="material-symbols-rounded input-icon">live_tv</span>
+                                <input type="url" id="livetv-url" placeholder="https://...">
+                            </div>
+                        </div>
+                        <div id="livetv-mpd-fields" class="hidden drm-box">
+                            <div class="drm-header">
+                                <span class="material-symbols-rounded">lock</span> 
+                                <span>DRM Configuration</span>
+                            </div>
+                            <div class="drm-input-group">
+                                <label for="livetv-key">Key</label>
+                                <input type="text" id="livetv-key" class="code-input" placeholder="Ex: kty...123">
+                            </div>
+                            <div class="drm-input-group">
+                                <label for="livetv-kid">KID</label>
+                                <input type="text" id="livetv-kid" class="code-input" placeholder="Ex: abc...xyz">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <label class="switch-label">
+                            <input type="checkbox" id="is-public" checked>
+                            <span class="toggle-switch"></span>
+                            <span>Public</span>
+                        </label>
+                        <div class="btn-group">
+                            <button type="button" id="cancel-btn" class="btn-text">Cancel</button>
+                            <button type="submit" class="btn-primary">
+                                <span class="material-symbols-rounded">save</span> Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="permissions-modal-overlay" class="modal-overlay">
+        <div class="modal-card small">
+             <div class="modal-header">
+                <h2>Channel Visibility</h2>
+                <button id="close-permissions-btn" class="icon-btn-close"><span class="material-symbols-rounded">close</span></button>
+            </div>
+             <div class="modal-body scrollable" id="permissions-list"></div>
+        </div>
+    </div>
+    
+    <div id="banner-modal-overlay" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Banners</h2>
+                <button id="close-banner-btn" class="icon-btn-close"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="banner-form" class="input-group-row">
+                    <div class="input-wrapper full-width">
+                        <span class="material-symbols-rounded input-icon">image</span>
+                        <input type="url" id="banner-url" placeholder="Image URL" required>
+                    </div>
+                    <input type="hidden" id="banner-edit-id">
+                    <button type="submit" class="btn-square"><span class="material-symbols-rounded">add</span></button>
+                </form>
+                <div id="banner-list" class="list-items"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-dialog-overlay" class="modal-overlay">
+        <div class="modal-card dialog">
+            <div class="dialog-icon"><span class="material-symbols-rounded">warning</span></div>
+            <h2 id="confirm-title">Confirm</h2>
+            <p id="confirm-message">Are you sure?</p>
+            <div class="dialog-actions">
+                <button id="confirm-cancel" class="btn-secondary">Cancel</button>
+                <button id="confirm-ok" class="btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+    <script type="module" src="/admin/script.js"></script>
+</body>
+</html>
